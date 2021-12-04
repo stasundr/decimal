@@ -323,6 +323,16 @@ func NewDecimalFromString(val string) (*Decimal, bool) {
 	return d, true
 }
 
+
+func NewDecimalFromStringOrDefault(val string, defaultValue *Decimal) *Decimal {
+	d := NewDecimalZero()
+	if !d.FromString(val) {
+		return defaultValue
+	}
+
+	return d
+}
+
 func NewDecimal(decimal *Decimal) *Decimal {
 	if decimal == nil {
 		decimal = NewDecimalZero()
