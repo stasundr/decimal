@@ -7,9 +7,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Added: NewDecimalFromStringOrDefault function
 
-### [0.1.0] 2021:10-15:
+### [0.1.0] 2021-10-15:
 
 - Initial version
 
-[0.1.1]: https://github.com/stasundr/decimal/compare/0.1.0...0.1.1
-[0.1.0]: https://github.com/stasundr/decimal/compare/e44b9ed...0.1.0
+[0.1.1]: https://github.com/stasundr/decimal/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/stasundr/decimal/compare/e44b9ed...v0.1.0
