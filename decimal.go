@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/holiman/uint256"
 )
 
@@ -197,7 +196,7 @@ func (d *Decimal) FromString(value string) bool {
 	} else if len(parts) == 1 {
 		valBig, ok = valBig.SetString(value, 10)
 	} else {
-		if len(parts[1]) > math.MaxUint8 {
+		if len(parts[1]) > MaxUint8 {
 			return false
 		}
 
@@ -322,7 +321,6 @@ func NewDecimalFromString(val string) (*Decimal, bool) {
 
 	return d, true
 }
-
 
 func NewDecimalFromStringOrDefault(val string, defaultValue *Decimal) *Decimal {
 	d := NewDecimalZero()
