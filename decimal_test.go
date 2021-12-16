@@ -1,7 +1,6 @@
 package decimal
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/holiman/uint256"
@@ -641,27 +640,4 @@ func TestDecimal_Eq(t *testing.T) {
 	if !x.Eq(y) {
 		t.Fatalf("x is not equal y")
 	}
-}
-
-func TestExpScaleFast(t *testing.T) {
-	expScale := uint256.NewInt(0).Set(ten)
-	fmt.Println(expScale.Bytes(), expScale.Uint64())
-	for _, n := range expScale.Bytes() {
-		fmt.Printf("% 08b", n) // prints 00000000 11111101
-	}
-	fmt.Println("")
-
-	expScale2 := uint256.NewInt(0).Exp(expScale, uint256.NewInt(0).SetUint64(2))
-	fmt.Println(expScale2.Bytes(), expScale2.Uint64())
-	for _, n := range expScale2.Bytes() {
-		fmt.Printf("% 08b", n) // prints 00000000 11111101
-	}
-	fmt.Println("")
-
-	expScale3 := uint256.NewInt(0).Exp(expScale, uint256.NewInt(0).SetUint64(3))
-	fmt.Println(expScale3.Bytes(), expScale3.Uint64())
-	for _, n := range expScale3.Bytes() {
-		fmt.Printf("% 08b", n) // prints 00000000 11111101
-	}
-	fmt.Println("")
 }
