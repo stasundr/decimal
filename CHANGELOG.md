@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### [0.1.3] 2021-12-16:
+
+- Added: Implement `yaml.Marshaler` and `yaml.Unmarshaler` interface for Decimal
+
 ### [0.1.2] 2021-12-10:
 
 - Changed: Removed redundant `go-ethereum` dependency
