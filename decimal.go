@@ -34,6 +34,23 @@ func (d *Decimal) UnmarshalJSON(dataJson []byte) error {
 	return nil
 }
 
+func (d *Decimal) MarshalYAML() (interface{}, error) {
+	return d.String(), nil
+}
+
+func (d *Decimal) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var data string
+	if err := unmarshal(&data); err != nil {
+		return nil
+	}
+
+	if !d.FromString(data) {
+		return fmt.Errorf("unmarshal decimal: %s", data)
+	}
+
+	return nil
+}
+
 // return d == y
 func (d *Decimal) Eq(y *Decimal) bool {
 	xx := NewDecimal(d)
