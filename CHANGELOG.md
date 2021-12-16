@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### [0.1.3] 2021-12-16:
 
-- Added: Implement `yaml.Marshaler` and `yaml.Unmarshaler` interface for Decimal
+- Added: Implemented `yaml.Marshaler` and `yaml.Unmarshaler` interface for Decimal
 
 ### [0.1.2] 2021-12-10:
 
@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Initial version
 
+[0.1.3]: https://github.com/stasundr/decimal/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/stasundr/decimal/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/stasundr/decimal/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/stasundr/decimal/compare/e44b9ed...v0.1.0
