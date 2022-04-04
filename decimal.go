@@ -198,6 +198,10 @@ func (d *Decimal) GetMantissa() uint8 {
 }
 
 func (d *Decimal) FromString(value string) bool {
+	if d == nil {
+		*d = *NewDecimalZero()
+	}
+
 	if value == "" {
 		d.value = uint256.NewInt(0)
 		return true
@@ -266,6 +270,10 @@ func (d *Decimal) Rescale(mantissa uint8) *Decimal {
 }
 
 func (d *Decimal) ToBig() *big.Int {
+	if d.value == nil {
+		d.value = uint256.NewInt(0)
+	}
+
 	return d.value.ToBig()
 }
 
