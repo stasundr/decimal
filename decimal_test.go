@@ -1,6 +1,7 @@
 package decimal
 
 import (
+	"math/big"
 	"testing"
 
 	"github.com/holiman/uint256"
@@ -277,6 +278,50 @@ func TestDecimal_Sub(t *testing.T) {
 	if !x.Sub(y).Eq(z) {
 		t.Fatalf("x is not equal y")
 	}
+}
+
+func TestDecimal_MulOverflow(t *testing.T) {
+	a, ok := new(big.Int).SetString("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16)
+	assert.True(t, ok)
+	b, ok := new(big.Int).SetString("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16)
+	assert.True(t, ok)
+
+	c, overflow := NewDecimalFromBig(a, 0).MulOverflow(NewDecimalFromBig(b, 0))
+	assert.True(t, overflow)
+	assert.Nil(t, c)
+}
+
+func TestDecimal_DivOverflow(t *testing.T) {
+	a, ok := new(big.Int).SetString("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16)
+	assert.True(t, ok)
+	b, ok := new(big.Int).SetString("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16)
+	assert.True(t, ok)
+
+	c, overflow := NewDecimalFromBig(a, 0).DivOverflow(NewDecimalFromBig(b, 0))
+	assert.True(t, overflow)
+	assert.Nil(t, c)
+}
+
+func TestDecimal_AddOverflow(t *testing.T) {
+	a, ok := new(big.Int).SetString("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16)
+	assert.True(t, ok)
+	b, ok := new(big.Int).SetString("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16)
+	assert.True(t, ok)
+
+	c, overflow := NewDecimalFromBig(a, 0).AddOverflow(NewDecimalFromBig(b, 0))
+	assert.True(t, overflow)
+	assert.Nil(t, c)
+}
+
+func TestDecimal_SubOverflow(t *testing.T) {
+	a, ok := new(big.Int).SetString("ffffffffffff", 16)
+	assert.True(t, ok)
+	b, ok := new(big.Int).SetString("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16)
+	assert.True(t, ok)
+
+	c, overflow := NewDecimalFromBig(a, 0).SubOverflow(NewDecimalFromBig(b, 0))
+	assert.True(t, overflow)
+	assert.Nil(t, c)
 }
 
 func TestDecimal_Mul(t *testing.T) {
