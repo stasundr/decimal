@@ -56,4 +56,24 @@ func TestConvertToWei(t *testing.T) {
 	expected, ok = new(big.Int).SetString("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16)
 	assert.True(t, ok)
 	assert.Equal(t, expected, ConvertToWei(actual, 18))
+
+	actual, ok = NewDecimalFromString("115792089237316195423570985008687907853269984665640564039457584007913129639935")
+	assert.True(t, ok)
+	expected, ok = new(big.Int).SetString("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16)
+	assert.True(t, ok)
+	actualWei, overflow := ConvertToWeiOverflow(actual, 18)
+	assert.True(t, overflow)
+	assert.Nil(t, actualWei)
+
+	actual, ok = NewDecimalFromString("115792089237316195423570985008687907853269984665640564039457.584007913129639936")
+	assert.False(t, ok)
+	assert.Nil(t, actual)
+
+	actual, ok = NewDecimalFromString("115792089237316195423570985008687907853269984665640564039457.584007913129639935")
+	assert.True(t, ok)
+	expected, ok = new(big.Int).SetString("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16)
+	assert.True(t, ok)
+	actualWei, overflow = ConvertToWeiOverflow(actual, 18)
+	assert.False(t, overflow)
+	assert.Equal(t, expected, actualWei)
 }

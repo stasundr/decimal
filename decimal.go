@@ -244,6 +244,34 @@ func (d *Decimal) FromString(value string) bool {
 	return true
 }
 
+func (d *Decimal) RescaleOverflow(mantissa uint8) (value *Decimal, overflow bool) {
+	if d == nil {
+		return nil, false
+	}
+
+	if mantissa == d.mantissa {
+		return d, false
+	}
+
+	if mantissa > d.mantissa {
+		_, isOverflow := d.value.MulOverflow(d.value, ExpScale(int16(mantissa-d.mantissa)))
+		if isOverflow {
+			return nil, isOverflow
+		}
+
+		d.mantissa = mantissa
+		return d, false
+	}
+
+	if mantissa < d.mantissa {
+		d.value.Div(d.value, ExpScale(int16(d.mantissa-mantissa)))
+		d.mantissa = mantissa
+		return d, false
+	}
+
+	return d, false
+}
+
 func (d *Decimal) Rescale(mantissa uint8) *Decimal {
 	if d == nil {
 		return nil
