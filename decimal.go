@@ -320,8 +320,8 @@ func (d *Decimal) FromString(value string) (ok bool) {
 		*d = *NewDecimalZero()
 	}
 
-	if value == "" {
-		d.value = uint256.NewInt(0)
+	d.value = uint256.NewInt(0)
+	if value == "" || value == "0" {
 		return true
 	}
 
