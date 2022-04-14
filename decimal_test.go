@@ -686,3 +686,12 @@ func TestDecimal_Eq(t *testing.T) {
 		t.Fatalf("x is not equal y")
 	}
 }
+
+func TestSpecialDivCase(t *testing.T) {
+	x := NewDecimalFromFloat64(1).
+		Div(NewDecimalFromFloat64(1)).
+		Mul(NewDecimalFromFloat64(1)).
+		Div(NewDecimalFromFloat64(1))
+
+	assert.Equal(t, NewDecimalFromFloat64(1).String(), x.String())
+}

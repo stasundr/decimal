@@ -197,6 +197,8 @@ func (d *Decimal) Mul(y *Decimal) *Decimal {
 	d.value.Mul(xx.value, yy.value)
 	d.mantissa = xx.mantissa + yy.mantissa
 
+	d.Optimize()
+
 	return d
 }
 
@@ -223,6 +225,8 @@ func (d *Decimal) MulOverflow(y *Decimal) (*Decimal, bool) {
 	}
 
 	d.mantissa = xx.mantissa + yy.mantissa
+
+	d.Optimize()
 
 	return d, false
 }
@@ -252,6 +256,8 @@ func (d *Decimal) Div(y *Decimal) *Decimal {
 
 	d.value.Div(xx.value, yy.value)
 	d.mantissa = scalerest
+
+	d.Optimize()
 
 	return d
 }
@@ -287,6 +293,8 @@ func (d *Decimal) DivOverflow(y *Decimal) (*Decimal, bool) {
 
 	d.value.Div(xx.value, yy.value)
 	d.mantissa = scalerest
+
+	d.Optimize()
 
 	return d, false
 }
@@ -420,6 +428,25 @@ func (d *Decimal) ToBig() *big.Int {
 	}
 
 	return d.value.ToBig()
+}
+
+func (d *Decimal) Optimize() {
+	rawStringValue := d.ToBig().String()
+	if rawStringValue == "0" {
+		return
+	}
+
+	var decimalsForOptimize uint8
+	for i := len(rawStringValue) - 1; i >= 0; i-- {
+		if rawStringValue[i] != '0' {
+			break
+		}
+		decimalsForOptimize++
+	}
+
+	if decimalsForOptimize > 0 && decimalsForOptimize <= d.mantissa {
+		d.Rescale(d.mantissa - decimalsForOptimize)
+	}
 }
 
 func (d *Decimal) String() string {
