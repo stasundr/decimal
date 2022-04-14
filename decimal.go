@@ -444,8 +444,12 @@ func (d *Decimal) Optimize() {
 		decimalsForOptimize++
 	}
 
-	if decimalsForOptimize > 0 && decimalsForOptimize <= d.mantissa {
-		d.Rescale(d.mantissa - decimalsForOptimize)
+	if decimalsForOptimize > 0 {
+		if decimalsForOptimize <= d.mantissa {
+			d.Rescale(d.mantissa - decimalsForOptimize)
+		} else {
+			d.Rescale(0)
+		}
 	}
 }
 
