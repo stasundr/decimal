@@ -317,7 +317,8 @@ func (d *Decimal) GetMantissa() uint8 {
 
 func (d *Decimal) FromString(value string) (ok bool) {
 	if d == nil {
-		*d = *NewDecimalZero()
+		temp := NewDecimalZero()
+		d = temp
 	}
 
 	d.value = uint256.NewInt(0)
