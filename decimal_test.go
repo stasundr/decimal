@@ -693,9 +693,8 @@ func TestDecimal_FromStringNilReceiver(t *testing.T) {
 	// Проверка, что вызов FromString на nil не вызывает панику
 	ok := d.FromString("123.45")
 
-	// Проверка, что FromString возвращает true, что означает успешное выполнение
-	if !ok {
-		t.Errorf("FromString failed when called on a nil receiver")
+	if ok {
+		t.Errorf("FromString should not be ok when called on a nil receiver")
 	}
 
 	// Проверка, что после вызова FromString d по-прежнему равно nil
