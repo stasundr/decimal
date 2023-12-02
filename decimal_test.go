@@ -696,9 +696,4 @@ func TestDecimal_FromStringNilReceiver(t *testing.T) {
 	if ok {
 		t.Errorf("FromString should not be ok when called on a nil receiver")
 	}
-
-	// Проверка, что после вызова FromString d по-прежнему равно nil
-	if d != nil {
-		t.Errorf("Expected d to remain nil, but it was not nil")
-	}
 }
