@@ -686,3 +686,20 @@ func TestDecimal_Eq(t *testing.T) {
 		t.Fatalf("x is not equal y")
 	}
 }
+
+func TestDecimal_FromStringNilReceiver(t *testing.T) {
+	var d *Decimal // d является nil
+
+	// Проверка, что вызов FromString на nil не вызывает панику
+	ok := d.FromString("123.45")
+
+	// Проверка, что FromString возвращает true, что означает успешное выполнение
+	if !ok {
+		t.Errorf("FromString failed when called on a nil receiver")
+	}
+
+	// Проверка, что после вызова FromString d по-прежнему равно nil
+	if d != nil {
+		t.Errorf("Expected d to remain nil, but it was not nil")
+	}
+}
